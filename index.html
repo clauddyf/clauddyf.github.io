@@ -6,47 +6,42 @@
     <title>K'js Game</title>
     <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Alegreya+Sans:900|Monda:400,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styling.css">
-    <style type='text/css'>
-        body {overflow:hidden; margin: 0;}
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="styling.css"> -->
+    <link rel="stylesheet" href="anovastyling.css">
 </head>
 <body>
-    <header class='BidDaddyWrap'>
-        <section class='DaddiesSection'>
-            <div class='DaddiesDiv'>
+    <div id='newting' class='papa-div'>
+        <div class='backgroundimg'> 
+            <div class='instructions'>
                 <h1>Eradicate The 'Rona'</h1>
-                <div class='instructions'>
-                    <p>The world is under attack by COVID-19. The fate of the world is in your hands</p>
+                <div>Instructions</div>
+                    <p>The world is under attack by COVID-19. Destroy the contagious virus before it destroys the planet. The fate of the world is in your hands</p>
                     <div class='controls'>
                         <div class='directions'>
+                            <h2>Controls:</h2>
                             <span class='dirs'>
-                               Space: <img class='dirphoto' src="/spacebar.png" alt="">
+                                Shoot:<img class='dirphoto' src="barspace.png" alt="">
                             </span>
-                            <span class= 'dirs'>
-                                Left:<img class='dirphoto' src="/left.png" alt="">
+                            <span class='dirs'>
+                                Left:<img class='dirphoto' src="left.png" alt="">
                             </span>
-                            <span class= 'dirs'>
-                                Right:<img class='dirphoto' src="/right.png" alt="">
+                            <span class='dirs'>
+                                Right:<img class='dirphoto' src="right.png" alt="">
                             </span>
-                            <span class= 'dirs'>
-                                Up:<img class='dirphoto' src="/up.png" alt="">
+                            <span class='dirs'>
+                                Up:<img class='dirphoto' src="up.png" alt="">
                             </span>
-                            <span class= 'dirs'>
-                                Down:<img class='dirphoto' src="/down.png" alt="">
+                            <span class='dirs'>
+                                Down:<img class='dirphoto' src="down.png" alt="">
                             </span>
-                        </div>
-                        <div class='dir'>
-                            <img class='cardiphoto' src="cardi.png" alt="">
+                            <span class='dirs'>Refresh to Restart</span>
                         </div>
                     </div>
-                </div>
             </div>
-        </section>
-        <section class='shooting-content'>
-            <div id='shooting-area'></div>
-        </section>
-    </header>
+        </div>
+        <button id='startit' onclick="ShooterGame(true)">Press to start</button>
+    <div>
     <script type="text/javascript" src="shooter.js"></script>
 </body>
 </html>

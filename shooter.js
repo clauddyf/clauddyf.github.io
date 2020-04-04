@@ -1,4 +1,4 @@
-var ShooterGame = function(config){
+var ShooterGame = function(bool){
     var canvas = document.createElement('canvas');
     var context = canvas.getContext('2d');
 
@@ -73,14 +73,16 @@ var ShooterGame = function(config){
     }
 
     var imageManager = new ImageManager();
-        imageManager.load('player', "kjsface.jpg")    //fill in the images for the file
-        imageManager.load('enemy', 'enemy2.png')
+        imageManager.load('player', "kj2.png")    //fill in the images for the file
+        imageManager.load('enemy', 'rona2.png')
         imageManager.load('back2', 'space2.jpg')
         imageManager.load('back1', 'stars1.jpg')
-
+    var startgame = false;
+    var restartgame = false;
     var gameOver = false;
 
     var Player = function(){
+        // debugger
             this.gameObject = new GameObject(0, canvas.height - 100, 90, 100);
             this.speed = 50
             var bullets = []
@@ -94,7 +96,7 @@ var ShooterGame = function(config){
                 } else if (KEY_STATUS.right){
                     this.gameObject.add(new GameObject(this.speed, 0, 0, 0))
                     if (this.gameObject.x + this.gameObject.width >= canvas.width){
-                        this.gameObject.x = canvas.width - this.gameObject.w
+                        this.gameObject.x = canvas.width - this.gameObject.width
                     }
                 } else if (KEY_STATUS.up){
                     this.gameObject.add(new GameObject(0,-this.speed, 0, 0))
@@ -203,6 +205,34 @@ var ShooterGame = function(config){
             }
     }
     var scoreManager = new ScoreManager(new GameObject(canvas.width/2,75,0,0));
+    
+    var GameOver = function (pos) {
+        this.gameObject = pos
+        this.showGameOver = 'Game Over!'
+        this.show = function () {
+            context.fillStyle = '#ffffff';
+            context.font = '50px Monoton, cursive';;
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(this.showGameOver, this.gameObject.x, this.gameObject.y);
+        }
+    }
+
+    var gameDone = new GameOver(new GameObject(canvas.width / 2, 25, 0, 0))
+
+    var ShowHit = function (pos) {
+        this.gameObject = pos
+        this.showAHit = '"The Enemy is Down General KJ"'
+        this.show = function () {
+            context.fillStyle = '#ffffff';
+            context.font = '50px Monoton, cursive';;
+            context.textAlign = 'center';
+            context.textBaseline = 'middle';
+            context.fillText(this.showAHit, this.gameObject.x, this.gameObject.y);
+        }
+    }
+
+    var showHit = new ShowHit(new GameObject(canvas.width / 2, 15, 0, 0))
 
     var getCanvasMouse = function(e){
             var rect = canvas.getBoundingClientRect();
@@ -236,7 +266,10 @@ var ShooterGame = function(config){
                         for( var bkey in bullets){
                             var bullet = bullets[bkey];
                             if(bullet != null && enemy.collision(bullet)){
+                                debugger
                                 console.log("The Enemy is Down General KJ");
+                                setTimeout(showHit.show(),1500)
+                                // showHit.show()
                                 enemies[key] = null;
                                 bullets[bkey] = null;
                                 scoreManager.increment();
@@ -275,6 +308,7 @@ var ShooterGame = function(config){
                 }
             }
 
+
             var draw = function(){
                 // debugger
                 update();
@@ -295,6 +329,11 @@ var ShooterGame = function(config){
 
                 if(!gameOver){
                     setTimeout(draw, 1000/30)
+                } else {
+                    gameDone.show()
+                    // document.getElementById('newting').style.display = 'inline'
+                    // document.getElementById(canvas).style.display = 'none'
+                    
                 }
             }
 
@@ -306,45 +345,11 @@ var ShooterGame = function(config){
                 38: 'up',
                 39: 'right',
                 40: 'down'
-                // 32: 'space',
-                // 65: 'left',
-                // 119: 'up',
-                // 83: 'right',
-                // 122: 'down',
-                // 97: 'left',
-                // 119: 'up',
-                // 115: 'right',
-                // 122: 'down',
-
             }
             KEY_STATUS = {};
             for(code in KEY_CODES){
                 KEY_STATUS[KEY_CODES[code]] = false;
             }
-
-            // window.addEventListener('keypress', function(e){
-            //     var code = e.keyCode || e.charCode
-            //     debugger
-            //     // var keyCode = (e.keyCode) ? e.keyCode : e.charCode
-            //     // var keyCode = (e.keyCode || e.charCode)
-            //     switch(code){
-            //         case 32: bullets.push(new Bullet(player.gameObject, new GameObject(0,-20,0,0)));
-            //         // case (97 || 119 || 115 || 122): player.update(KEY_STATUS[KEY_CODES[keyCode]] = true);
-            //         // case 37: player.update(KEY_STATUS[KEY_CODES[keyCode]] = true);
-            //         // case 38: player.update(KEY_STATUS[KEY_CODES[keyCode]] = true);
-            //         // case 39: player.update(KEY_STATUS[KEY_CODES[keyCode]] = true);
-            //         // case 40: player.update(KEY_STATUS[KEY_CODES[keyCode]] = true);
-            //         break;
-            //     }
-            // });
-
-            // var lastX = 0;
-            // canvas.addEventListener('mousemove', function(e){
-            //     var x = e.clientX;
-
-            //     player.update(new GameObject(x- lastX,0,0,0));
-            //     lastX = x;
-            // });
 
             window.addEventListener('keydown',function(e){
                 // debugger
@@ -372,11 +377,23 @@ var ShooterGame = function(config){
             //     bullets.push(new Bullet(player.gameObject, new GameObject(0,-20,0,0)));
             // });
     }
+    // debugger
+    // var start = function () {
+    //     if (startgame) {
+    //         this.World();
+    //     }
+    // }
+    // start()
 
     World();
     // debugger
-    // document.body.appendChild(canvas); 
-    document.getElementById('shooting-area').appendChild(canvas)
+    if(bool === undefined){
+        document.createElement('P')
+    } else{
+        document.body.appendChild(canvas); 
+        document.getElementById('newting').style.display = 'none'
+    }
+    // document.getElementById('shooting-area').appendChild(canvas)
     // document.querySelectorAll('.shooting-area').appendChild(canvas)
 }
 
