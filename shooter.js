@@ -208,7 +208,7 @@ var ShooterGame = function(bool){
     
     var GameOver = function (pos) {
         this.gameObject = pos
-        this.showGameOver = 'Game Over!'
+        this.showGameOver = ''
         this.show = function () {
             context.fillStyle = '#ffffff';
             context.font = '50px Monoton, cursive';;
@@ -222,17 +222,23 @@ var ShooterGame = function(bool){
 
     var ShowHit = function (pos) {
         this.gameObject = pos
-        this.showAHit = '"The Enemy is Down General KJ"'
+        this.showAHit = "The Enemy is Down General KJ"
+        this.myButton = document.createElement('BUTTON')
+        this.text = document.createTextNode('Restart')
+        this.myButton.appendChild(this.text)
         this.show = function () {
             context.fillStyle = '#ffffff';
             context.font = '50px Monoton, cursive';;
             context.textAlign = 'center';
             context.textBaseline = 'middle';
-            context.fillText(this.showAHit, this.gameObject.x, this.gameObject.y);
+            context.fillText('restart', this.gameObject.x, this.gameObject.y);
+            context.onClick = function(){
+                gameOver = false
+            }
         }
     }
 
-    var showHit = new ShowHit(new GameObject(canvas.width / 2, 15, 0, 0))
+    var showHit = new ShowHit(new GameObject(canvas.width / 2, 25, 0, 0))
 
     var getCanvasMouse = function(e){
             var rect = canvas.getBoundingClientRect();
@@ -246,7 +252,7 @@ var ShooterGame = function(bool){
             var enemies = [];
             var bullets = [];
             var lastEnemy = 0;
-            var enemyTimeThreshold = 680;
+            var enemyTimeThreshold = 650;
             var update = function(){
                 if(lastEnemy + enemyTimeThreshold < Date.now()){
                     enemies.push(new Enemy(new GameObject(0,5,0,0)));
@@ -326,13 +332,20 @@ var ShooterGame = function(bool){
                 }
 
                 scoreManager.show();
-
                 if(!gameOver){
                     setTimeout(draw, 1000/30)
                 } else {
+                    debugger
                     gameDone.show()
                     // document.getElementById('newting').style.display = 'inline'
                     // document.getElementById(canvas).style.display = 'none'
+                    // var myButton = document.createElement('BUTTON')
+                    // var text = document.createTextNode('Restart')
+                    // myButton.appendChild(text)
+                    showHit.show()
+                    // myButton.onclick = function(){
+
+                    // }
                     
                 }
             }
