@@ -273,7 +273,7 @@ var ShooterGame = function(bool){
                             if(bullet != null && enemy.collision(bullet)){
                                 debugger
                                 console.log("The Enemy is Down General KJ");
-                                setTimeout(showHit.show(),1500)
+                                // setTimeout(showHit.show(),1500)
                                 // showHit.show()
                                 enemies[key] = null;
                                 bullets[bkey] = null;
