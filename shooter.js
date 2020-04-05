@@ -77,8 +77,6 @@ var ShooterGame = function(bool){
         imageManager.load('enemy', 'rona2.png')
         imageManager.load('back2', 'space2.jpg')
         imageManager.load('back1', 'stars1.jpg')
-    var startgame = false;
-    var restartgame = false;
     var gameOver = false;
 
     var Player = function(){
@@ -191,7 +189,7 @@ var ShooterGame = function(bool){
             this.color = color || 'red';
             this.showScore = 'Score:'
             this.increment = function(){
-                this.score++;
+                this.score += 2;
             }
             this.reset - function(){
                 this.score = 0;
@@ -251,7 +249,7 @@ var ShooterGame = function(bool){
             var enemies = [];
             var bullets = [];
             var lastEnemy = 0;
-            var enemyTimeThreshold = 650;
+            var enemyTimeThreshold = 2500;
             var update = function(){
                 if(lastEnemy + enemyTimeThreshold < Date.now()){
                     enemies.push(new Enemy(new GameObject(0,5,0,0)));
@@ -332,30 +330,27 @@ var ShooterGame = function(bool){
 
                 scoreManager.show();
                 if(!gameOver){
-                    setTimeout(draw, 1000/30)
+                    setTimeout(draw, 1000/25)
                 } else {
                     debugger
-                    gameDone.show()
                     var myButton = document.createElement('BUTTON')
-                    var text = document.createTextNode('Restart')
+                    var text = document.createTextNode('Restart Game')
+                    var TingDone = document.createElement('H1')
+                    var gameText = document.createTextNode('Game Over!')
+                    TingDone.appendChild(gameText)
+                    TingDone.setAttribute('id','gameova')
                     myButton.appendChild(text)
                     myButton.setAttribute('id','restartgame')
                     myButton.onclick = function(){
                         // document.getElementById('restartgame').style.display = 'none'
                         document.getElementById('restartgame').remove()
+                        document.getElementById('gameova').remove()
                         ShooterGame(true)
                     }
                     document.body.removeChild(canvas); 
-                    // var myButton = document.getElementById('restart').style.display = 'inline'
-                    document.body.appendChild(myButton)
-                    // document.body.appendChild(myButton)
-                    
-
-                    // showHit.show()
-                    // myButton.onclick = function(){
-
-                    // }
-                    
+                    document.body.appendChild(TingDone)
+                    TingDone.appendChild(myButton).style.height = '50%'
+   
                 }
             }
 
