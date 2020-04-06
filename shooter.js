@@ -85,7 +85,6 @@ var ShooterGame = function(bool){
             this.speed = 50
             var bullets = []
             this.update = function(status){
-                // debugger
                 if (KEY_STATUS.left){
                     this.gameObject.add(new GameObject(-this.speed,0,0,0))
                     if(this.gameObject.x <= 0){
@@ -97,9 +96,10 @@ var ShooterGame = function(bool){
                         this.gameObject.x = canvas.width - this.gameObject.width
                     }
                 } else if (KEY_STATUS.up){
+                    debugger
                     this.gameObject.add(new GameObject(0,-this.speed, 0, 0))
-                    if (this.gameObject.y + this.gameObject.height >= canvas.height){
-                        this.gameObject.y = canvas.height - this.gameObject.height
+                    if (this.gameObject.y <= 0){
+                        this.gameObject.y = 0
                     }
                 } else if (KEY_STATUS.down){
                     this.gameObject.add(new GameObject(0,this.speed, 0, 0))
